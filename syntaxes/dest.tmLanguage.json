@@ -1,0 +1,111 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "HTTP",
+  "scopeName": "source.dest",
+  "patterns": [
+    { "include": "#request-separator" },
+    { "include": "#comment" },
+    { "include": "#file-variable" },
+    { "include": "#request-line" },
+    { "include": "#header" },
+    { "include": "#variable" },
+    { "include": "#request-body" }
+  ],
+  "repository": {
+    "request-separator": {
+      "match": "^(###)(.*)?$",
+      "name": "comment.line.separator.http",
+      "captures": {
+        "1": { "name": "comment.line.separator.http" },
+        "2": { "name": "comment.line.separator.http" }
+      }
+    },
+    "comment": {
+      "patterns": [
+        {
+          "match": "^\\s*#(?!##).*$",
+          "name": "comment.line.http"
+        },
+        {
+          "match": "^\\s*//.*$",
+          "name": "comment.line.http"
+        }
+      ]
+    },
+    "file-variable": {
+      "match": "^\\s*(@)(\\w[\\w.-]*)\\s*(=)\\s*(.*?)\\s*$",
+      "captures": {
+        "1": { "name": "punctuation.definition.variable.http" },
+        "2": { "name": "variable.other.definition.http" },
+        "3": { "name": "keyword.operator.assignment.http" },
+        "4": {
+          "name": "string.other.variable-value.http",
+          "patterns": [
+            { "include": "#variable" }
+          ]
+        }
+      }
+    },
+    "request-line": {
+      "match": "^\\s*(GET|POST|PUT|PATCH|DELETE|HEAD|OPTIONS)\\s+(.+?)(?:\\s+(HTTP/\\S+))?\\s*$",
+      "captures": {
+        "1": { "name": "keyword.other.method.http" },
+        "2": {
+          "patterns": [
+            { "include": "#url-dest" },
+            { "include": "#url-mdk" },
+            { "include": "#url-standard" },
+            { "include": "#variable" },
+            {
+              "match": "\\S+",
+              "name": "string.other.url.http"
+            }
+          ]
+        },
+        "3": { "name": "constant.language.http" }
+      }
+    },
+    "url-dest": {
+      "match": "dest://[^\\s{{}}]+",
+      "name": "entity.name.tag.destination.http"
+    },
+    "url-mdk": {
+      "match": "mdk://[^\\s{{}}]+",
+      "name": "entity.name.tag.destination.http"
+    },
+    "url-standard": {
+      "match": "https?://[^\\s{{}}]+",
+      "name": "string.other.url.http"
+    },
+    "header": {
+      "match": "^\\s*([\\w-]+)(:\\s*)(.+?)\\s*$",
+      "captures": {
+        "1": { "name": "entity.name.tag.header.http" },
+        "2": { "name": "punctuation.separator.header.http" },
+        "3": {
+          "name": "string.other.header-value.http",
+          "patterns": [
+            { "include": "#variable" }
+          ]
+        }
+      }
+    },
+    "variable": {
+      "match": "(\\{\\{)(\\w[\\w.-]*)(\\}\\})",
+      "captures": {
+        "1": { "name": "punctuation.definition.variable.http" },
+        "2": { "name": "variable.other.http" },
+        "3": { "name": "punctuation.definition.variable.http" }
+      }
+    },
+    "request-body": {
+      "begin": "^\\s*(?=\\{|\\[)",
+      "end": "(?=^###|^\\s*(GET|POST|PUT|PATCH|DELETE|HEAD|OPTIONS)\\s)",
+      "name": "meta.request-body.http",
+      "patterns": [
+        { "include": "#variable" },
+        { "include": "source.json" }
+      ]
+    }
+  }
+}

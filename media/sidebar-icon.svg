@@ -1,0 +1,18 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <!--
+    Destination Anywhere sidebar icon — cloud with connector plug.
+    Represents BTP Destination Service: a cloud (BTP) with connection ports below.
+    Rendered as a monochrome mask by VS Code; uses currentColor fill.
+    Inspired by SAP BTP Solution Diagrams (Apache 2.0).
+  -->
+
+  <!-- Cloud body — BTP -->
+  <path d="M18.5 10.2A4.5 4.5 0 0 0 10.1 8 3.5 3.5 0 1 0 6.5 15H18a3 3 0 0 0 .5-5.8z"/>
+
+  <!-- Plug body below cloud -->
+  <rect x="8" y="16" width="8" height="4" rx="1"/>
+
+  <!-- Plug prongs (two teeth pointing up into cloud gap) -->
+  <rect x="10" y="14" width="1.5" height="2.5" rx="0.5"/>
+  <rect x="12.5" y="14" width="1.5" height="2.5" rx="0.5"/>
+</svg>

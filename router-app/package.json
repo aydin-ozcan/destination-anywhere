@@ -1,0 +1,23 @@
+{
+  "name": "dest-anywhere-router",
+  "version": "1.0.0",
+  "description": "Lightweight Express proxy for on-premise SAP BTP destinations via Cloud Connector. Deployed by the Destination Anywhere VS Code extension.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aydin-ozcan/destination-anywhere",
+    "directory": "router-app"
+  },
+  "dependencies": {
+    "express": "^4",
+    "@sap-cloud-sdk/http-client": "^4",
+    "@sap-cloud-sdk/connectivity": "^4",
+    "@sap/xssec": "^4",
+    "passport": "^0.7"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

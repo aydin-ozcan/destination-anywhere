@@ -1,0 +1,32 @@
+# Source & build artifacts (webpack bundles everything into dist/extension.js)
+src/**
+out/**
+node_modules/**
+.vscode-test/**
+*.vsix
+tsconfig.json
+webpack.config.js
+package-lock.json
+.eslintrc.json
+.eslintignore
+
+# Router app — include package.json + server.js, exclude dev files
+router-app/README.md
+router-app/node_modules/**
+
+# Dev / planning files
+PLAN.md
+docs/**
+examples/**
+.vscode/**
+.gitignore
+.github/**
+.playwright-cli/**
+
+# Media not needed at runtime (keep sidebar icon SVG for activity bar)
+media/icon-color.svg
+media/sidebar-icon.svg
+
+# Source maps & license files
+dist/**/*.map
+dist/**/*.LICENSE.txt

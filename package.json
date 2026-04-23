@@ -1,0 +1,280 @@
+{
+  "name": "destination-anywhere",
+  "displayName": "Destination Anywhere",
+  "description": "REST client for VS Code with full SAP BTP Destination support. Send HTTP/OData requests using dest:// for subaccount destinations and mdk:// for SAP Mobile Development Kit (MDK) app-specific destinations. Both protocols resolve transparently via the CF CLI.",
+  "version": "1.10.3",
+  "license": "Apache-2.0",
+  "publisher": "aydin-ozcan",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aydin-ozcan/destination-anywhere"
+  },
+  "homepage": "https://github.com/aydin-ozcan/destination-anywhere#readme",
+  "author": {
+    "name": "Aydin Ozcan",
+    "url": "https://github.com/aydin-ozcan"
+  },
+  "bugs": {
+    "url": "https://github.com/aydin-ozcan/destination-anywhere/issues"
+  },
+  "engines": {
+    "vscode": "^1.87.0"
+  },
+  "categories": [
+    "Testing",
+    "Other"
+  ],
+  "keywords": [
+    "REST",
+    "HTTP",
+    "OData",
+    "SAP",
+    "SAP BTP",
+    "Cloud Foundry",
+    "Destination",
+    "MDK"
+  ],
+  "activationEvents": [
+    "onLanguage:dest",
+    "onView:destinationAnywhere.destinationsView"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "destinationAnywhere",
+          "title": "Destination Anywhere",
+          "icon": "media/destination-service-vscode-sidebar.svg"
+        }
+      ]
+    },
+    "views": {
+      "destinationAnywhere": [
+        {
+          "id": "destinationAnywhere.destinationsView",
+          "name": "Destinations"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "destinationAnywhere.cfLogout",
+          "when": "view == destinationAnywhere.destinationsView",
+          "group": "navigation"
+        },
+        {
+          "command": "destinationAnywhere.refreshDestinations",
+          "when": "view == destinationAnywhere.destinationsView",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "destinationAnywhere.insertSnippet",
+          "when": "viewItem == destination",
+          "group": "1_actions@1"
+        },
+        {
+          "command": "destinationAnywhere.showDestinationInfo",
+          "when": "viewItem == destination",
+          "group": "1_actions@2"
+        },
+        {
+          "command": "destinationAnywhere.uninstallRouterApp",
+          "when": "viewItem == proxyRouter",
+          "group": "1_actions@1"
+        }
+      ]
+    },
+    "languages": [
+      {
+        "id": "dest",
+        "aliases": [
+          "Dest",
+          "dest",
+          "Destination Anywhere"
+        ],
+        "extensions": [
+          ".dest"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "dest",
+        "scopeName": "source.dest",
+        "path": "./syntaxes/dest.tmLanguage.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "destinationAnywhere.sendRequest",
+        "title": "Send Request",
+        "category": "Destination Anywhere"
+      },
+      {
+        "command": "destinationAnywhere.switchEnvironment",
+        "title": "Switch Environment",
+        "category": "Destination Anywhere"
+      },
+      {
+        "command": "destinationAnywhere.clearDestinationCache",
+        "title": "Clear Destination Cache",
+        "category": "Destination Anywhere"
+      },
+      {
+        "command": "destinationAnywhere.refreshDestinations",
+        "title": "Refresh",
+        "category": "Destination Anywhere",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "destinationAnywhere.cfLogin",
+        "title": "Login to Cloud Foundry",
+        "category": "Destination Anywhere"
+      },
+      {
+        "command": "destinationAnywhere.insertSnippet",
+        "title": "Insert Sample Request",
+        "category": "Destination Anywhere"
+      },
+      {
+        "command": "destinationAnywhere.focusSidebar",
+        "title": "Open Destinations Panel",
+        "category": "Destination Anywhere"
+      },
+      {
+        "command": "destinationAnywhere.createDestService",
+        "title": "Create Destination Service instance",
+        "category": "Destination Anywhere"
+      },
+      {
+        "command": "destinationAnywhere.msLogin",
+        "title": "Login to Mobile Services",
+        "category": "Destination Anywhere"
+      },
+      {
+        "command": "destinationAnywhere.deployProxyApp",
+        "title": "Deploy On-Premise Router",
+        "category": "Destination Anywhere"
+      },
+      {
+        "command": "destinationAnywhere.proxyLogin",
+        "title": "Login to On-Premise Router",
+        "category": "Destination Anywhere"
+      },
+      {
+        "command": "destinationAnywhere.showDestinationInfo",
+        "title": "Destination Info",
+        "category": "Destination Anywhere",
+        "icon": "$(info)"
+      },
+      {
+        "command": "destinationAnywhere.uninstallRouterApp",
+        "title": "Uninstall On-Premise Router",
+        "category": "Destination Anywhere",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "destinationAnywhere.cfLogout",
+        "title": "Logout from Cloud Foundry",
+        "category": "Destination Anywhere",
+        "icon": "$(sign-out)"
+      }
+    ],
+    "configuration": {
+      "title": "Destination Anywhere",
+      "properties": {
+        "destinationAnywhere.timeout": {
+          "type": "number",
+          "default": 30000,
+          "description": "Request timeout in milliseconds"
+        },
+        "destinationAnywhere.followRedirects": {
+          "type": "boolean",
+          "default": true,
+          "description": "Follow HTTP redirects"
+        },
+        "destinationAnywhere.rejectUnauthorized": {
+          "type": "boolean",
+          "default": true,
+          "description": "Reject unauthorized SSL certificates"
+        },
+        "destinationAnywhere.defaultHeaders": {
+          "type": "object",
+          "default": {},
+          "description": "Default headers to include in every request"
+        },
+        "destinationAnywhere.environmentVariables": {
+          "type": "object",
+          "default": {},
+          "description": "Environment-specific variables. Keys are environment names, values are objects of variable name-value pairs."
+        },
+        "destinationAnywhere.activeEnvironment": {
+          "type": "string",
+          "default": "",
+          "description": "Currently active environment name"
+        },
+        "destinationAnywhere.destinationServiceUrl": {
+          "type": "string",
+          "default": "",
+          "description": "URL of the SAP BTP Destination Service. If empty, will attempt auto-discovery from CF environment."
+        },
+        "destinationAnywhere.mobileServicesUrl": {
+          "type": "string",
+          "default": "",
+          "description": "Base URL of the SAP Mobile Services instance (e.g. https://myapp.cfapps.us10.hana.ondemand.com). If empty, will attempt auto-discovery from CF environment."
+        },
+        "destinationAnywhere.destinationCacheTTL": {
+          "type": "number",
+          "default": 300,
+          "description": "Destination cache time-to-live in seconds"
+        },
+        "destinationAnywhere.logLevel": {
+          "type": "string",
+          "enum": [
+            "off",
+            "error",
+            "warn",
+            "info",
+            "debug"
+          ],
+          "default": "info",
+          "description": "Logging level for the output channel"
+        }
+      }
+    },
+    "keybindings": [
+      {
+        "command": "destinationAnywhere.sendRequest",
+        "key": "ctrl+alt+r",
+        "mac": "cmd+alt+r",
+        "when": "editorLangId == dest"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "lint": "eslint src --ext ts",
+    "test": "echo \"No tests configured yet\" && exit 0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.87.0",
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "eslint": "^8.56.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.3.3",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {},
+  "icon": "media/icon.png"
+}
